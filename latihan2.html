@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Vue Beginners.</title>
+	<style>
+		body{
+			margin: 5%;
+			font-family: 'Quicksand'. sans-serif;
+		}
+
+
+		.active {
+			background: salmon;
+			border: 0;
+			padding: 5px;
+		}
+	</style>
+</head>
+<body>
+
+
+	<div id="app">
+		<header-component nama="Vuejs" gambar="gambar1.png"></header-component>
+		<header-component nama="Vuejs" gambar="Vuejs.jpg"></header-component>
+		<main>
+		 <Kelas items="kelas" input="kelasbaru"></Kelas>
+		 <home></home>
+</main>
+<footer-component></footer-component>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/vue@2.6.0/dist/vue.js"></script>
+<script>
+	const Home = {
+		template: '<div>Home</div>'
+	}
+		Vue.component('header-component', {
+			props: ['nama', 'gambar'],
+			template: `
+			<header>
+	}
+	<img :src="gambar" width="100">
+	<p>{{ 'Hello, ' +nama}}</p>
+	</header>
+	`,
+	 data: function() {
+	 	return {
+	 		pesan: 'Hello, Component!'
+	 	}
+	  }
+	  })
+
+	Vue.component('footer-component', {
+			template: `
+			<footer id="footer">
+		<p>copyright 2020</p>
+	</footer>
+	`
+		})
+
+		Vue.component('Kelas', {
+			props: ['items', 'input'],
+		   template: `
+			<div>
+			<h3>Tambah Kelas.</h3>
+		    <p><input type="text" placeholder="Nama Kelas" v-on:keyup.enter="submit" v-model="input"></p>
+			<hr>
+		    <h3>Daftar Kelas ({{ items.length }}) </h3>
+			<template v-if="items.length> 1">
+			<ul>
+			<li v-for="(item, index) of items">{{ index+1 }} - {{ item }}</li>
+			</ul>
+			</template>
+		
+			<li v-else>kelas belum tersedia</li>
+			</div>
+		` ,
+		 data: function() {
+		 	return {
+		 
+			}
+		 },
+		 methods: {
+ 				  submit: function() {
+ 				  	this.kelas.unshif( this.kelasbaru)
+ 				  	this.kelasbaru = ""
+ 			}
+ 		}		  	
+	})
+
+		const vm = new Vue({
+			el: '#app' ,
+			component: {
+				'home' : Home
+			}
+			data: {
+			    // string, number, boolean, array, object
+				kelas: ['Golang', 'PHP'],
+				Kelasbaru: ""
+			},
+			methods: {
+
+			 },
+			computed: {
+				}
+			})
+	</script>
+</body>
+</html>
